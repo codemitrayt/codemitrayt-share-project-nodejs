@@ -36,6 +36,10 @@ class AuthController {
 
     return res.json({ message: "Otp sent successfully" });
   }
+
+  login(req, res) {
+    return res.json({ message: "Login successful" });
+  }
 }
 
 module.exports = AuthController;
