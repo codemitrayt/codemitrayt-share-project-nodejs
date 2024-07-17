@@ -1,7 +1,12 @@
 const Joi = require("joi");
-const User = require("../model/user-model");
+const CustomErrorHandler = require("../services/custom-error-handler");
+
 class AuthController {
-  async signUp(req, res) {
+  constructor(authService) {
+    this.authService = authService;
+  }
+
+  async signUp(req, res, next) {
     const { fullName, email, password, confirmPassword } = req.body;
 
     const signUpSchema = Joi.object({
@@ -12,39 +17,12 @@ class AuthController {
     });
 
     const { error } = signUpSchema.validate(req.body);
-    if (error) {
-      return res.status(400).json({
-        message: "All fields required",
-        error: error.details[0].message,
-      });
-    }
+    if (error) return next(error);
 
-    if (password !== confirmPassword) {
-      return res.status(400).json({
-        message: "All fields required",
-        error: "Password does not match",
-      });
-    }
+    const userExist = await this.authService.getUserByEmail(email);
+    if (!!userExist) return next(CustomErrorHandler.userExists());
 
-    const userExist = await User.findOne({ email });
-    if (userExist) {
-      return res.status(400).json({
-        message: "Email already registered",
-        error: "Email already registered",
-      });
-    }
-
-    const user = await User.create({ email, fullName, password });
-
-    /*
-        1. front data (data modeling)
-        2. validate front data 
-        3. check email already registered
-        4. Otp send to user email (logic)
-        5. return response
-    */
-
-    return res.json({ message: "User register successfully", user });
+    return res.json({ message: "User register successfully" });
   }
 
   login(req, res) {
