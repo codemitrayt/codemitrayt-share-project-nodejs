@@ -1,7 +1,7 @@
 const Joi = require("joi");
-
+const User = require("../model/user-model");
 class AuthController {
-  signUp(req, res) {
+  async signUp(req, res) {
     const { fullName, email, password, confirmPassword } = req.body;
 
     const signUpSchema = Joi.object({
@@ -26,6 +26,16 @@ class AuthController {
       });
     }
 
+    const userExist = await User.findOne({ email });
+    if (userExist) {
+      return res.status(400).json({
+        message: "Email already registered",
+        error: "Email already registered",
+      });
+    }
+
+    const user = await User.create({ email, fullName, password });
+
     /*
         1. front data (data modeling)
         2. validate front data 
@@ -34,7 +44,7 @@ class AuthController {
         5. return response
     */
 
-    return res.json({ message: "Otp sent successfully" });
+    return res.json({ message: "User register successfully", user });
   }
 
   login(req, res) {
