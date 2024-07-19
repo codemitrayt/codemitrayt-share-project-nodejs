@@ -2,8 +2,9 @@ const Joi = require("joi");
 const CustomErrorHandler = require("../services/custom-error-handler");
 
 class AuthController {
-  constructor(authService) {
+  constructor(authService, tokenService) {
     this.authService = authService;
+    this.tokenService = tokenService;
   }
 
   async signUp(req, res, next) {
@@ -22,7 +23,18 @@ class AuthController {
     const userExist = await this.authService.getUserByEmail(email);
     if (!!userExist) return next(CustomErrorHandler.userExists());
 
-    return res.json({ message: "User register successfully" });
+    const token = await this.tokenService.signAccessToken({
+      payload: { email, fullName },
+      expiresIn: "5m",
+    });
+
+    return res.json({
+      message: "Verification email sent successfully",
+      user: {
+        email,
+        fullName,
+      },
+    });
   }
 
   login(req, res) {
