@@ -1,6 +1,4 @@
-const { config } = require("dotenv");
-config();
+import dotenv from "dotenv";
+dotenv.config();
 
-const credentials = ({ APP_PORT, PRIVAT_KEY, NODE_ENV } = process.env);
-
-module.exports = credentials;
+export const { APP_PORT, PRIVATE_KEY, NODE_ENV, DB_URL } = process.env;

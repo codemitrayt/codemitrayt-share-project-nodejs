@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const DB_URL = "mongodb://localhost:27017/share-project";
+import mongoose from "mongoose";
+import { DB_URL } from "./credentials";
 
 const initDb = async () => {
   if (!DB_URL) throw Error("Db not connected!");
@@ -7,4 +7,4 @@ const initDb = async () => {
   console.log("Connected to MongoDB");
 };
 
-module.exports = initDb;
+export default initDb;

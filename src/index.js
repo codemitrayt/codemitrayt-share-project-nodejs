@@ -1,9 +1,8 @@
-const express = require("express");
-
-const router = require("./router");
-const initDb = require("./config/db");
-const credentials = require("./config/credentials");
-const errorHandler = require("./middlewares/error-handler");
+import express from "express";
+import router from "./router";
+import initDb from "./config/db";
+import { APP_PORT } from "./config/credentials";
+import errorHandler from "./middlewares/error-handler";
 
 const app = express();
 
@@ -17,8 +16,6 @@ app.get("/", (req, res) => {
 });
 
 app.use(errorHandler);
-app.listen(credentials.APP_PORT, () =>
-  console.log(`listening on port ${credentials.APP_PORT}`)
-);
+app.listen(APP_PORT, () => console.log(`listening on port ${APP_PORT}`));
 
-module.exports = app;
+export default app;

@@ -1,5 +1,5 @@
-const Joi = require("joi");
-const CustomErrorHandler = require("../services/custom-error-handler");
+import Joi from "joi";
+import CustomErrorHandler from "../services/custom-error-handler";
 
 class AuthController {
   constructor(authService, tokenService) {
@@ -42,4 +42,4 @@ class AuthController {
   }
 }
 
-module.exports = AuthController;
+export default AuthController;

@@ -1,12 +1,12 @@
-const { ValidationError } = require("joi");
-const CustomErrorHandler = require("../services/custom-error-handler");
-const credentials = require("../config/credentials");
+import { ValidationError } from "joi";
+import CustomErrorHandler from "../services/custom-error-handler";
+import { NODE_ENV } from "../config/credentials";
 
 const errorHandler = (err, req, res, next) => {
   let statusCode = 500;
   let data = {
     message: "Internal Server Error",
-    ...(credentials.NODE_ENV === "development" && { error: err?.message }),
+    ...(NODE_ENV === "development" && { error: err.message }),
   };
 
   if (err instanceof ValidationError) {
@@ -27,4 +27,4 @@ const errorHandler = (err, req, res, next) => {
   return res.status(statusCode).json(data);
 };
 
-module.exports = errorHandler;
+export default errorHandler;

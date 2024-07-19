@@ -8,4 +8,4 @@ class AuthService {
   }
 }
 
-module.exports = AuthService;
+export default AuthService;

@@ -1,9 +1,9 @@
-const jwt = require("jsonwebtoken");
-const credentials = require("../config/credentials");
+import jwt from "jsonwebtoken";
+import { PRIVATE_KEY } from "../config/credentials";
 
 class TokenService {
   async signAccessToken({ payload, expiresIn }) {
-    return await jwt.sign(payload, credentials.PRIVATE_KEY, {
+    return await jwt.sign(payload, PRIVATE_KEY, {
       expiresIn,
       algorithm: "RS256",
       issuer: "share-project-auth-service",
@@ -11,4 +11,4 @@ class TokenService {
   }
 }
 
-module.exports = TokenService;
+export default TokenService;

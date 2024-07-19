@@ -1,11 +1,12 @@
-const router = require("express").Router();
+import { Router } from "express";
 
-const asyncWrapper = require("./utils/async-wrapper");
-const TokenService = require("./services/token-service");
-const AuthController = require("./controllers/auth-controller");
-const AuthService = require("./services/auth-service");
-const UserModel = require("./model/user-model");
+import asyncWrapper from "./utils/async-wrapper";
+import TokenService from "./services/token-service";
+import AuthController from "./controllers/auth-controller";
+import AuthService from "./services/auth-service";
+import UserModel from "./model/user-model";
 
+const router = Router();
 const tokenService = new TokenService();
 const authService = new AuthService(UserModel);
 const authController = new AuthController(authService, tokenService);
@@ -18,4 +19,4 @@ router.post("/auth/login", (req, res, next) =>
   authController.login(req, res, next)
 );
 
-module.exports = router;
+export default router;
