@@ -4,13 +4,17 @@
   "description": "This is share poject backend",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon esm -r src/index.js",
+    "build": "node esm -r src/index.js"
   },
   "author": "codemitrayt@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
+    "esm": "^3.2.25",
     "express": "^4.19.2",
     "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.1",
     "nodemon": "^3.1.4"
   }
