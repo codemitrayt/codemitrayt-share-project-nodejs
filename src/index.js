@@ -1,6 +1,8 @@
 const express = require("express");
+
 const router = require("./router");
 const initDb = require("./config/db");
+const credentials = require("./config/credentials");
 const errorHandler = require("./middlewares/error-handler");
 
 const app = express();
@@ -15,6 +17,8 @@ app.get("/", (req, res) => {
 });
 
 app.use(errorHandler);
-app.listen(5000, () => console.log("listening on port 5000"));
+app.listen(credentials.APP_PORT, () =>
+  console.log(`listening on port ${credentials.APP_PORT}`)
+);
 
 module.exports = app;
