@@ -4,8 +4,8 @@
   "description": "This is share poject backend",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -r esm src/index.js",
-    "build": "node -r esm src/index.js"
+    "dev": "nodemon -r esm api/index.js",
+    "build": "node -r esm api/index.js"
   },
   "author": "codemitrayt@gmail.com",
   "license": "ISC",
